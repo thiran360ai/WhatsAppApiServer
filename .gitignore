@@ -1,0 +1,48 @@
+# ----------------------------------------
+# Laravel
+# ----------------------------------------
+/vendor/
+/node_modules/
+/public/storage
+/storage/*.key
+/storage/app/public/
+/storage/framework/
+/storage/logs/
+/.env
+.env.*
+.phpunit.result.cache
+
+# Laravel specific files
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# ----------------------------------------
+# Node.js & WhatsApp Web.js
+# ----------------------------------------
+/whatsapp-node-server/node_modules/
+/whatsapp-node-server/.wwebjs_auth/
+/wwebjs_auth/
+*.log
+
+# Dist or build output (if applicable)
+/dist/
+/build/
+
+# ----------------------------------------
+# System / IDE
+# ----------------------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# ----------------------------------------
+# Optional: PHPStorm, Composer Cache
+# ----------------------------------------
+/.phpstorm.meta.php
+/.composer
