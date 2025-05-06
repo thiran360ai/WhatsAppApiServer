@@ -3,7 +3,8 @@
     "type": "commonjs",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "start": "node server.js"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
@@ -26,5 +27,23 @@
         "qrcode": "^1.5.4",
         "qrcode-terminal": "^0.12.0",
         "whatsapp-web.js": "^1.27.0"
-    }
+    },
+    "name": "whatsappapiserver",
+    "version": "1.0.0",
+    "description": "<p align=\"center\"><a href=\"https://laravel.com\" target=\"_blank\"><img src=\"https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg\" width=\"400\" alt=\"Laravel Logo\"></a></p>",
+    "main": "server.js",
+    "directories": {
+        "test": "tests"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/thiran360ai/WhatsAppApiServer.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/thiran360ai/WhatsAppApiServer/issues"
+    },
+    "homepage": "https://github.com/thiran360ai/WhatsAppApiServer#readme"
 }
