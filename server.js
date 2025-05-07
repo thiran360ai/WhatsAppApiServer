@@ -14,7 +14,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload());
 
-// In-memory storage for WhatsApp clients
 const clients = new Map();
 
 // Create a new WhatsApp client
@@ -26,6 +25,8 @@ function createClient(sessionId) {
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         }
     });
+
+    client.qrCode = null;
 
     client.initialize();
 
@@ -40,7 +41,7 @@ function createClient(sessionId) {
 
     client.on('ready', () => {
         console.log(`✅ Client [${sessionId}] is ready!`);
-        client.qrCode = null; // Clear QR when authenticated
+        client.qrCode = null;
     });
 
     client.on('authenticated', () => {
@@ -54,8 +55,8 @@ function createClient(sessionId) {
     clients.set(sessionId, client);
 }
 
-// Get QR Code or Session Status
-app.get('/get-qr', (req, res) => {
+// Optimized QR retrieval with wait logic
+app.get('/get-qr', async (req, res) => {
     const sessionId = req.query.session;
     if (!sessionId) return res.status(400).send('Missing session parameter');
 
@@ -65,22 +66,35 @@ app.get('/get-qr', (req, res) => {
         console.log(`🆕 Creating new session: ${sessionId}`);
         createClient(sessionId);
         client = clients.get(sessionId);
-        return res.json({ status: 'connecting' });
     }
 
-    if (client.qrCode) {
-        res.json({ qr: client.qrCode });
-    } else if (client.info) {
-        res.json({ status: 'authenticated' });
-    } else {
-        res.json({ status: 'connecting' });
-    }
+    // Wait for QR code or authentication
+    const waitForQr = () => {
+        return new Promise((resolve) => {
+            const interval = setInterval(() => {
+                if (client.qrCode) {
+                    clearInterval(interval);
+                    resolve({ qr: client.qrCode });
+                } else if (client.info) {
+                    clearInterval(interval);
+                    resolve({ status: 'authenticated' });
+                }
+            }, 500);
+
+            setTimeout(() => {
+                clearInterval(interval);
+                resolve({ status: 'connecting' });
+            }, 10000);
+        });
+    };
+
+    const response = await waitForQr();
+    res.json(response);
 });
 
 // Send Text Message
 app.post('/send-message', async (req, res) => {
     const { number, message, session } = req.body;
-
     const client = clients.get(session);
     if (!client) return res.status(400).send('Invalid session');
 
@@ -93,14 +107,13 @@ app.post('/send-message', async (req, res) => {
     }
 });
 
-// Send Media (Image, PDF, Video)
+// Send Media File
 app.post('/send-media', async (req, res) => {
     const { number, caption, session } = req.body;
     const file = req.files?.file;
 
     const client = clients.get(session);
     if (!client) return res.status(400).send('Invalid session');
-
     if (!file) return res.status(400).send('No file uploaded');
 
     const uploadPath = path.join(__dirname, 'uploads');
@@ -141,13 +154,13 @@ app.post('/logout', async (req, res) => {
     }
 });
 
-// 🔥 New API: List all Active Sessions
+// List all active sessions
 app.get('/sessions', (req, res) => {
     const activeSessions = Array.from(clients.keys());
     res.json({ sessions: activeSessions });
 });
 
-// Start server
+// Start the server
 app.listen(port, () => {
     console.log(`🚀 Server running at http://localhost:${port}`);
 });
