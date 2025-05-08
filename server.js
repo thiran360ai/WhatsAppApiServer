@@ -74,19 +74,15 @@ app.get('/get-qr', async (req, res) => {
             const interval = setInterval(() => {
                 if (client.qrCode) {
                     clearInterval(interval);
+                    console.log("✅ QR Code generated.");
                     resolve({ qr: client.qrCode });
-                } else if (client.info) {
-                    clearInterval(interval);
-                    resolve({ status: 'authenticated' });
+                } else {
+                    console.log("⏳ Waiting for QR...");
                 }
             }, 500);
-
-            setTimeout(() => {
-                clearInterval(interval);
-                resolve({ status: 'connecting' });
-            }, 10000);
         });
     };
+    
 
     const response = await waitForQr();
     res.json(response);
