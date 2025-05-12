@@ -23,7 +23,7 @@ class QRController extends Controller
         }
 
         try {
-            $response = Http::get('http://localhost:4000/get-qr', [
+            $response = Http::get('https://node.redjinni.com/get-qr', [
                 'session' => $session
             ]);
 
@@ -48,7 +48,7 @@ class QRController extends Controller
         }
 
         try {
-            $response = Http::get('http://localhost:4000/logout-whatsapp', [
+            $response = Http::get('https://node.redjinni.com/logout-whatsapp', [
                 'session' => $session
             ]);
 

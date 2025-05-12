@@ -44,13 +44,13 @@ class MessageController extends Controller
                 if ($fullImagePath && file_exists($fullImagePath)) {
                     $response = Http::asMultipart()
                         ->attach('file', file_get_contents($fullImagePath), basename($fullImagePath))
-                        ->post('http://localhost:4000/send-media', [
+                        ->post('https://node.redjinni.com/send-media', [
                             ['name' => 'number', 'contents' => $number],
                             ['name' => 'caption', 'contents' => $message],
                             ['name' => 'session', 'contents' => $request->session],
                         ]);
                 } else {
-                    $response = Http::post('http://localhost:4000/send-message', [
+                    $response = Http::post('https://node.redjinni.com/send-message', [
                         'number' => $number,
                         'message' => $message,
                         'session' => $request->session,
@@ -77,7 +77,7 @@ class MessageController extends Controller
         ]);
 
         try {
-            $response = Http::post('http://localhost:4000/logout', [
+            $response = Http::post('https://node.redjinni.com/logout', [
                 'session' => $request->session,
             ]);
 
@@ -99,7 +99,7 @@ class MessageController extends Controller
         ]);
 
         try {
-            $response = Http::get('http://localhost:4000/check-session', [
+            $response = Http::get('https://node.redjinni.com/check-session', [
                 'session' => $request->session,
             ]);
 
@@ -126,7 +126,7 @@ class MessageController extends Controller
     public function getAllActiveSessions()
     {
         try {
-            $response = Http::get('http://localhost:4000/list-sessions');
+            $response = Http::get('https://node.redjinni.com/list-sessions');
 
             if ($response->successful()) {
                 $sessions = $response->json();

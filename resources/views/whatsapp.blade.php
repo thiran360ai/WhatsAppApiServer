@@ -151,7 +151,7 @@ function logoutSession() {
         return;
     }
 
-    axios.post('http://localhost:4000/logout', { session: session })
+    axios.post('https://node.redjinni.com/logout', { session: session })
         .then(response => {
             alert('✅ Session logged out.');
             document.getElementById('login-status').innerHTML = '';
@@ -165,7 +165,7 @@ function logoutSession() {
 }
 
 function checkAllSessions() {
-    axios.get('http://localhost:4000/sessions')
+    axios.get('https://node.redjinni.com/sessions')
         .then(response => {
             let dropdown = document.getElementById('active-sessions');
             dropdown.innerHTML = ''; // Clear old options

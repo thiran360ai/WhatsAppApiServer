@@ -14,7 +14,7 @@ class SessionController extends Controller
         ]);
 
         try {
-            $response = Http::get('http://localhost:4000/get-qr', [
+            $response = Http::get('https://node.redjinni.com/get-qr', [
                 'session' => $request->session,
             ]);
 
@@ -27,7 +27,7 @@ class SessionController extends Controller
     public function listSessions()
     {
         try {
-            $response = Http::get('http://localhost:4000/list-sessions');
+            $response = Http::get('https://node.redjinni.com/list-sessions');
 
             return response()->json([
                 'success' => true,
@@ -48,7 +48,7 @@ class SessionController extends Controller
         ]);
 
         try {
-            $response = Http::post('http://localhost:4000/logout', [
+            $response = Http::post('https://node.redjinni.com/logout', [
                 'session' => $request->session,
             ]);
 

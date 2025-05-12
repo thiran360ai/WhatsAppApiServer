@@ -135,3 +135,13 @@
 2025/05/08-02:11:48.081 e18 compacted to: files[ 0 0 1 0 0 0 0 ]
 2025/05/08-02:11:48.081 e18 Delete type=2 #37
 2025/05/08-02:11:48.082 e18 Manual compaction at level-1 from '\x00\x10\x00\x00\x05' @ 1680 : 0 .. '\x00\x11\x00\x00\x00' @ 0 : 0; will stop at (end)
+2025/05/12-00:49:35.941 44a8 Level-0 table #40: started
+2025/05/12-00:49:36.241 44a8 Level-0 table #40: 1147633 bytes OK
+2025/05/12-00:49:36.278 44a8 Delete type=2 #35
+2025/05/12-00:49:36.278 44a8 Delete type=0 #36
+2025/05/12-00:49:41.212 2c9c Compacting 1@1 + 1@2 files
+2025/05/12-00:49:41.395 2c9c Generated table #41@1: 13181 keys, 486658 bytes
+2025/05/12-00:49:41.395 2c9c Compacted 1@1 + 1@2 files => 486658 bytes
+2025/05/12-00:49:41.451 2c9c compacted to: files[ 0 0 1 0 0 0 0 ]
+2025/05/12-00:49:41.452 2c9c Delete type=2 #38
+2025/05/12-00:49:41.452 2c9c Delete type=2 #40

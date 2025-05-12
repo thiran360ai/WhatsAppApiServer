@@ -32,7 +32,7 @@ foreach ($rows as $index => $row) {
     ];
 
     $context = stream_context_create($options);
-    $result = file_get_contents("http://localhost:4000/send-message", false, $context);  // Changed port to 4000
+    $result = file_get_contents("https://node.redjinni.com/send-message", false, $context);  // Changed port to 4000
 
     if ($result === FALSE) {
         echo "❌ Failed to send message to $number\n";
